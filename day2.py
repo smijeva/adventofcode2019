@@ -27,13 +27,17 @@ def compute(numbers, zero):
 def main():
   file = open("input2.txt")
   line =  file.read()
-  numbers = list(map(int, line.split(",")))
-  numbers[1] = 12
-  numbers[2] = 2
   file.close()
-
-  compute(numbers, 0)
-  print(numbers)
+  numbers = list(map(int, line.split(",")))
+  for i in range(100):
+    for j in range(100):
+      attempt = numbers.copy()
+      attempt[1] = i
+      attempt[2] = j
+      compute(attempt, 0)
+      if attempt[0] == 19690720:
+        print(i)
+        print(j)
 
 
 def test():
