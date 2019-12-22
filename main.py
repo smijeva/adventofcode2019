@@ -1,3 +1,3 @@
-import day2
+import day3
 
-day2.main()
+day3.main()
