@@ -7,7 +7,6 @@ def get_rows(layer, width, height):
     pointer = end_pointer
   return rows
 
-
 def get_layers(image, width, height):
   size = len(image)
   layer_size = width * height
@@ -19,6 +18,20 @@ def get_layers(image, width, height):
     layers.append(layer)
     pointer = end_pointer
   return layers
+
+def get_image(layers, width, height):
+  image = [[0 for i in range(width)] for j in range(height)]
+
+  for i in range(height):
+    for j in range(width):
+      for l in layers:
+        if l[i][j] != '2':
+          if l[i][j] == "0":
+            image[i][j] = " "
+          else:
+            image[i][j] = "0"
+          break  
+  return image
 
 def count_zeros(layer):
   return count_numbers(layer, '0')
@@ -33,15 +46,13 @@ def main():
   file.close()
 
   layers = get_layers(input, 25, 6)
-  check_layer = min(layers, key=count_zeros)
-  result = count_numbers(check_layer, '2') * count_numbers(check_layer, '1') 
-  print(result)
+  image = get_image(layers, 25, 6)
+  for row in image:
+    r = ''.join(row)
+    print(r)
 
 def test():
-  t_in = "123456789012"
-  t = get_layers(t_in, 3, 2)
-  expected = [ [ "123", "456" ], [ "789", "012" ] ]
-
-  assert t == expected, f"{t}"
-
-  print("ok")
+  t_in = "0222112222120000"
+  l = get_layers(t_in, 2, 2)
+  t = get_image(l, 2, 2)
+  print(t)
